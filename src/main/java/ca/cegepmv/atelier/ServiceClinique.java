@@ -54,10 +54,11 @@ public class ServiceClinique {
      * - Un solde de compte négatif ajoute une pénalité de 5% sur le total (après rabais).
      */
     public String genererFacture(Proprietaire proprietaire, List<Visite> visites) {
+        //validation
         if (proprietaire == null || visites == null || visites.isEmpty()) {
             throw new IllegalArgumentException("Le propriétaire et au moins une visite sont requis");
         }
-
+        //calcul
         double sousTotal = 0.0;
         for (Visite visite : visites) {
             double tarifBase;
@@ -84,6 +85,7 @@ public class ServiceClinique {
             total = total + (total * 0.05);
         }
 
+        //formatage et resonse
         StringBuilder sb = new StringBuilder();
         sb.append("Facture pour ").append(proprietaire.getPrenom()).append(" ").append(proprietaire.getNom());
         sb.append(" — Sous-total: $").append(String.format(Locale.US, "%.2f", sousTotal));
@@ -101,9 +103,11 @@ public class ServiceClinique {
      * ⚠️ Aucun test ne couvre cette méthode actuellement.
      */
     public double estimerCoutAnnuel(List<Visite> visites) {
+        //pourait être dans la même méthode de validation que ^^
         if (visites == null || visites.isEmpty()) {
             return 0.0;
         }
+        //logique calcul
         double total = 0.0;
         for (Visite visite : visites) {
             double tarifBase;

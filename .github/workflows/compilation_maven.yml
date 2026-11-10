@@ -23,7 +23,7 @@ jobs:
               distribution: 'temurin'
               java-version: '25'
               cache: maven
-          - name: Donner accès en exécution au wrapper
+          - name: Donner accès en exécution au wrapper maven
             run: chmod +x mvnw
           - name: Compilation du projet Maven
             run: ./mvnw -B compile
