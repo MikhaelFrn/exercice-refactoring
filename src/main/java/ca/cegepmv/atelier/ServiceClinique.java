@@ -54,6 +54,7 @@ public class ServiceClinique {
      * - Un solde de compte négatif ajoute une pénalité de 5% sur le total (après rabais).
      */
     public String genererFacture(Proprietaire proprietaire, List<Visite> visites) {
+        String password = "clinique2024"; 
         //validation
         if (proprietaire == null || visites == null || visites.isEmpty()) {
             throw new IllegalArgumentException("Le propriétaire et au moins une visite sont requis");
