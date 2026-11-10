@@ -95,12 +95,30 @@ class ServiceCliniqueTest {
     // ------------------------------------------------------------------
 
     // TODO 1 — genererFacture() : cas VACCIN (tarif de base 35$, sans urgence)
+    @Test
+    void genererFacture_VaccinAvecTarifDeBase() {
+        Visite visiteVaccin = new Visite(LocalDate.now(), "VACCIN", false, "Dr Gagnon", "Vaccination");
+        String facture = service.genererFacture(julie, List.of(visiteVaccin));
+        assertEquals("Facture pour Julie Tremblay — Sous-total: $35.00 — Total: $35.00", facture);
+    }
 
     // TODO 2 — genererFacture() : propriétaire avec 2 animaux ou plus (rabais de 10%
     //          appliqué, et présent dans le texte de la facture — vérifiez le format
     //          exact affiché par le code actuel avant d'écrire votre assertion)
+    @Test
+    void genererFacture_2AnimauxOuPlus(){
+        julie.ajouterAnimal(new Animal(2, "Jax", "CHAT", LocalDate.of(2019, 5, 10)));
+        julie.ajouterAnimal(new Animal(3, "John Jones", "LAPIN", LocalDate.of(2024, 1, 9)));
+        Visite visiteMultipleAnimals = new Visite(LocalDate.now(), "CONSULTATION",  false, "Dr Jansen", "Visite de routine");
+        String factureMultipleAnimals = service.genererFacture(julie, List.of(visiteMultipleAnimals));
+        assertEquals("Facture pour Julie Tremblay — Sous-total: $60.00 — Remise fidélité: -10% — Total: $54.00", factureMultipleAnimals);
+    }
 
     // TODO 3 — genererFacture() : propriétaire avec un solde négatif (pénalité de 5%)
+    @Test
+    void genererFacture_SoldeNegatif () {
+        Visite visiteSoldeNegatif = new Visite();
+    }
 
     // TODO 4 — calculerRemiseFidelite() : plus d'un animal ET anneesClient >= 3 (0.15)
 
